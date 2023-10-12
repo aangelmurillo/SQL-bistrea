@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS resenas(
     id_usuario INT NOT NULL,
     PRIMARY KEY(id_resena),
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
-)
+);
 
 CREATE TABLE IF NOT EXISTS configs_carusel (
     id_config_carusel INT AUTO_INCREMENT NOT NULL UNIQUE, 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS pedidos(
     FOREIGN KEY(id_empleado) REFERENCES empleados(id_empleado),
     PRIMARY KEY(id_pedido),
     nombre_cliente_pedido VARCHAR(120) NOT NULL,
-    total_pedido DECIMAL(6,2) NOT NULL
+    total_pedido DECIMAL(7,2) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS detalles_pedido(
@@ -140,6 +140,16 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_pe(
     PRIMARY KEY(id_detalle_pedido_pe),
     FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id_detalle_pedido),
     FOREIGN KEY(id_producto_extra) REFERENCES productos_extra(id_producto_extra)
+);
+
+
+CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe(
+    id_detalles_pedido_tp INT AUTO_INCREMENT NOT NULL,
+    nom_cafe ENUM("Regular", "Descafeinado") NOT NULL,
+    id_detalle_pedido INT NOT NULL,
+    id_tipo_cafe INT NOT NULL,    
+    FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id_detalle_pedido),
+    FOREIGN KEY(id_tipo_cafe) REFERENCES tipo_cafe(id_tipo_cafe)
 );
 
 CREATE TABLE IF NOT EXISTS pedidos_clientes(
