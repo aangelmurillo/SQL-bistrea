@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
     nombre_usuario VARCHAR(50) NOT NULL,
     apellido_p_usuario VARCHAR(20) NOT NULL,
     apellido_m_usuario VARCHAR(20),
-    email_usuario VARCHAR(120) NOT NULL UNIQUE INDEX,
+    email_usuario VARCHAR(120) NOT NULL UNIQUE,
     contrasena_usuario VARCHAR(100) NOT NULL,
     foto_perfil_usuario VARCHAR(255) DEFAULT "foto-usuario.jpg",
     telefono_usuario VARCHAR(25) NOT NULL UNIQUE,
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido(
     cantidad_producto INT NOT NULL,
     precio_unitario DECIMAL(6,2) NOT NULL,
     id_producto INT NOT NULL,
-    FOREIGN KEY(id_producto) REFERENCES productos(id_producto)
+    FOREIGN KEY(id_producto) REFERENCES productos(id_producto),
     tipo_pago_pedido ENUM("Efectivo", "Paypal") NOT NULL,
     subtotal_pedido DECIMAL(6,2) NOT NULL,
     id_pedido INT NOT NULL,
@@ -148,8 +148,9 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe(
     nom_cafe ENUM("Regular", "Descafeinado") NOT NULL,
     id_detalle_pedido INT NOT NULL,
     id_tipo_cafe INT NOT NULL,    
+    PRIMARY KEY(id_detalles_pedido_tp),
     FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id_detalle_pedido),
-    FOREIGN KEY(id_tipo_cafe) REFERENCES tipo_cafe(id_tipo_cafe)
+    FOREIGN KEY(id_tipo_cafe) REFERENCES tipos_cafe(id_tipo_cafe)
 );
 
 CREATE TABLE IF NOT EXISTS pedidos_clientes(
