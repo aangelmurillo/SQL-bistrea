@@ -17,13 +17,13 @@ CREATE TABLE IF NOT EXISTS medidas(
 
 CREATE TABLE IF NOT EXISTS tipos_cafe(
     id_tipo_cafe INT AUTO_INCREMENT NOT NULL UNIQUE,
-    tipo_cafe VARCHAR(15) NOT NULL,
+    tipo_cafe VARCHAR(15) NOT NULL UNIQUE,
     PRIMARY KEY(id_tipo_cafe)
 );
 
 CREATE TABLE IF NOT EXISTS productos_extra(
     id_producto_extra INT AUTO_INCREMENT NOT NULL UNIQUE,
-    nombre_pe VARCHAR(20) NOT NULL,
+    nombre_pe VARCHAR(20) NOT NULL UNIQUE,
     precio_unitario_pe DECIMAL(7,2) NOT NULL,
     PRIMARY KEY(id_producto_extra)
 );
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
     apellido_m_usuario VARCHAR(20),
     email_usuario VARCHAR(120) NOT NULL UNIQUE,
     contrasena_usuario VARCHAR(100) NOT NULL,
-    foto_perfil_usuario VARCHAR(255) DEFAULT "foto-usuario.jpg",
+    foto_perfil_usuario VARCHAR(255) NOT NULL DEFAULT "foto-usuario.jpg",
     telefono_usuario VARCHAR(25) NOT NULL UNIQUE,
     status_usuario TINYINT DEFAULT 1,
     creado_en_usuario TIMESTAMP NOT NULL,
