@@ -36,16 +36,22 @@ VALUES
 ("Buenos cafes", 5);
 
 INSERT INTO configs_carusel
-(img_config_carrusel, id_empleado)
+(img_config_carusel, id_empleado)
 VALUES
 ("img1.jpg", 2),
 ("img2.jpg", 2),
 ("img3.jpg", 2),
 ("img4.jpg", 2);
 
+
+ALTER TABLE productos MODIFY COLUMN especialidad_producto ENUM("Caliente", "Frío", "Postre", "Frappe") NOT NULL;
+
 INSERT INTO productos 
 (nombre_producto, descripcion_producto, precio_unitario_producto, stock_producto, img_producto, slug_producto,
 id_categoria, especialidad_producto, estado_producto, medida_producto, id_medida)
 VALUES
-("Cafe Americano Caliente", "Cafe muy rico", 35.00, "cafe_americano.jpg", "cafe-americano-caliente", 2, "Caliente", 1, 500, 1),
-("Chai Frappe", "Chai hecho con ingredientes naturales", 54, "chai_frappe.jpg", "chai"),
+("Cafe Americano Caliente", "Cafe muy rico", 35.00, 10,"cafe_americano.jpg", "cafe-americano-caliente", 2, "Caliente", 1, 500, 1),
+("Chai Frappe", "Chai hecho con ingredientes naturales", 63.00, 10, "chai_frappe.jpg", "chai-frappe", 2, "Frappe", 1, 500, 1),
+("Cappuccino Caliente", "Capuccino muy rico", 50.00, 10,"capuccino-caliente.jpg", "capuccino-caliente", 2, "Caliente", 1, 500, 1),
+("Cocoa Caliente", "Cocoa caliente", 57.00, 10, "cocoa.jpg", "cocoa", 2, "Caliente",  1, 500, 1),
+("Taro Frio", "Taro frío", 59.00, 10, "Taro.jpg", "taro", 2, "Frío", 1, 500,1)
