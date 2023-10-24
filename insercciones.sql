@@ -54,4 +54,60 @@ VALUES
 ("Chai Frappe", "Chai hecho con ingredientes naturales", 63.00, 10, "chai_frappe.jpg", "chai-frappe", 2, "Frappe", 1, 500, 1),
 ("Cappuccino Caliente", "Capuccino muy rico", 50.00, 10,"capuccino-caliente.jpg", "capuccino-caliente", 2, "Caliente", 1, 500, 1),
 ("Cocoa Caliente", "Cocoa caliente", 57.00, 10, "cocoa.jpg", "cocoa", 2, "Caliente",  1, 500, 1),
-("Taro Frio", "Taro frío", 59.00, 10, "Taro.jpg", "taro", 2, "Frío", 1, 500,1)
+("Taro Frio", "Taro frío", 59.00, 10, "Taro.jpg", "taro", 2, "Frío", 1, 500,1);
+
+INSERT INTO stock_productos
+(ingreso_stock, fecha_ingreso_stock,id_producto) VALUES 
+(20, '10/1/2024', 1),
+(30, '11/1/2024',2),
+(40, '12/1/2024',3),
+(50, '13/1/2024',4),
+(60, '14/1/2024',5);
+
+INSERT INTO pedidos
+(fecha_realizado_pedido,hora_realizado_pedido,hora_entrega_pedido,estado_pedido,
+info_pedido,op_pedido,id_empleado,nombre_cliente_pedido,total_pedido) VALUES
+ ('2023/10/2','10:04','11:04',"En solicitud", "null" ,"Llevar", 1, "Adrian",130.20),
+ ('2023/10/3','11:04','12:14',"En proceso", "Sin azucar","Comer ahí",2,"Angel",65.20),
+ ('2023/10/4','12:14','13:24',"Entregado", "sin crema batida","Llevar",3,"Jose",60.50),
+ ('2023/10/5','13:24','14:34',"En solicitud", "Con esplenda","Comer ahí",2,"Andrea",40.20),
+ ('2023/10/6','14:34','15:34',"En proceso", "Sin hielo","Llevar",1,"Luisa",50.50);
+ 
+ INSERT INTO detalles_pedido 
+ (cantidad_producto,precio_unitario,id_producto ,tipo_pago_pedido,
+ subtotal_pedido,id_pedido) VALUES 
+ (2, 31.00, 1, "Efectivo", 62.00,1),
+ (4,36.00,2,"Paypal", 184.00,2),
+ (5,59.00,3,"Efectivo", 395.00,3),
+ (9,13.00,4,"Paypal", 117.00,4),
+ (8,25.00,5,"Efectivo",200.00,5);
+ 
+ INSERT INTO detalles_pedido_pe
+ (precio_pe, id_detalle_pedido, id_producto_extra) VALUES
+ (10.00,1,1),
+ (20.00,2,2),
+ (10.00,3,3),
+ (15.00,4,4),
+ (20.00,5,5);
+ 
+ INSERT INTO detalles_pedido_tipo_cafe
+ (nom_cafe, id_detalle_pedido,id_tipo_cafe) VALUES
+ ("Regular",1,1),
+ ("Descafeinado",2,2),
+ ("Regular",3,3),
+ ("Descafeinado",4,4),
+ ("Regular",5,5);
+ 
+ INSERT INTO pedidos_clientes 
+ (id_pedido, id_usuario) VALUES
+ (1,1),
+ (2,2),
+ (3,3),
+ (4,4),
+ (5,5);
+ 
+ 
+
+
+
+
