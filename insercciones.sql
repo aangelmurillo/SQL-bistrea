@@ -87,16 +87,16 @@ info_pedido,op_pedido,id_empleado,nombre_cliente_pedido,total_pedido) VALUES
  (10.00,1,1),
  (20.00,2,2),
  (10.00,3,3),
- (15.00,4,4),
- (20.00,5,5);
+ (15.00,4,1),
+ (20.00,5,2);
  
  INSERT INTO detalles_pedido_tipo_cafe
  (nom_cafe, id_detalle_pedido,id_tipo_cafe) VALUES
  ("Regular",1,1),
  ("Descafeinado",2,2),
- ("Regular",3,3),
- ("Descafeinado",4,4),
- ("Regular",5,5);
+ ("Regular",3,1),
+ ("Descafeinado",4,2),
+ ("Regular",5,1);
  
  INSERT INTO pedidos_clientes 
  (id_pedido, id_usuario) VALUES
