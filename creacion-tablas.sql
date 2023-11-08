@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS pedidos(
     fecha_realizado_pedido DATE NOT NULL,
     hora_realizado_pedido TIME NOT NULL,
     hora_entrega_pedido TIME NOT NULL,
-    estado_pedido ENUM("En solicitud", "En proceso", "Entregado") NOT NULL,
+    estado_pedido DEFAULT "En solicitud" ENUM("En solicitud", "En proceso", "Entregado") NOT NULL,
     info_pedido VARCHAR(255),
     op_pedido ENUM("Llevar", "Comer ahí") NOT NULL,
     id_empleado INT NOT NULL,
