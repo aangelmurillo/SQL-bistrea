@@ -152,3 +152,36 @@ WHERE pedidos.estado_pedido = 'Entregado'
 GROUP BY pedidos.id_pedido, Nombre, "Hora de Entrega", Notas, Total
 ORDER BY pedidos.fecha_realizado_pedido, pedidos.hora_realizado_pedido;
 
+/*BIENVENIDA USUARIOS*/
+SELECT * FROM usuarios;
+SELECT * FROM roles;
+
+DELIMITER $$
+CREATE PROCEDURE bienvenida_usuario (IN id_usuario_sesion INT)
+BEGIN
+    DECLARE mensaje VARCHAR(100);
+    DECLARE es_cliente BOOL;
+    /*AQUI CHECO SI ES CELINTE O NO Y LO ALMACENOE N LA VARIABLE*/
+    SELECT nombre_rol = 'Cliente' INTO es_cliente
+    FROM usuarios
+    JOIN roles ON usuarios.id_rol = roles.id_rol
+    WHERE usuarios.id_usuario = id_usuario_sesion;
+
+    IF es_cliente THEN
+        SELECT CONCAT('Bienvenido ', usuarios.nombre_usuario, ' ', usuarios.apellido_p_usuario) INTO mensaje
+        FROM usuarios
+        WHERE id_usuario = id_usuario_sesion;
+    ELSE
+        SELECT CONCAT('Bienvenido ', roles.nombre_rol) INTO mensaje
+        FROM roles
+        JOIN usuarios ON usuarios.id_rol = roles.id_rol
+        WHERE usuarios.id_usuario = id_usuario_sesion;
+    END IF;
+
+    SELECT mensaje AS mensaje;
+END $$
+DELIMITER ;
+
+CALL bienvenida_usuario(4);
+
+
