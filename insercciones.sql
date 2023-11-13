@@ -109,5 +109,18 @@ info_pedido,op_pedido,id_empleado,nombre_cliente_pedido,total_pedido) VALUES
  
 
 
+/*PROBANDO TRIGGER DE ACTUALIZACION STOCK*/
 
+/*pedidos*/
+INSERT INTO pedidos (fecha_realizado_pedido, hora_realizado_pedido, hora_entrega_pedido, estado_pedido, info_pedido, op_pedido, id_empleado, nombre_cliente_pedido, total_pedido)
+VALUES ('2023-10-09', '09:05:00', '20:04:00', 'En proceso', 'Mucho hielo', 'Llevar', '1', 'Amanda', '905') ;
+INSERT INTO pedidos (fecha_realizado_pedido, hora_realizado_pedido, hora_entrega_pedido, estado_pedido, info_pedido, op_pedido, id_empleado, nombre_cliente_pedido, total_pedido)
+VALUES ('2023-10-09', '09:05:00', '20:04:00', 'En proceso', 'Mucho hielo', 'Llevar', '1', 'Murillo', '50') ;
+/*detalle pedido*/
+INSERT INTO detalles_pedido (cantidad_producto, precio_unitario, id_producto, tipo_pago_pedido, subtotal_pedido, id_pedido)
+VALUES (20, 31, 1, 'Efectivo', 62, 6);
+INSERT INTO detalles_pedido (cantidad_producto, precio_unitario, id_producto, tipo_pago_pedido, subtotal_pedido, id_pedido)
+VALUES (50, 31, 1, 'Efectivo', 62, 7);
+/*actualizamos estado_pedido*/
+UPDATE pedidos SET estado_pedido='En solicitud' WHERE id_pedido=7; 
 
