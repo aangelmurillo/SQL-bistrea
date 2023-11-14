@@ -204,3 +204,16 @@ BEGIN
   END IF;
 END //
 DELIMITER ;
+
+/*Cantidad de stock en productos*/
+DELIMITER //
+DROP TRIGGER IF EXISTS actualizar_stock_producto //
+CREATE TRIGGER actualizar_stock_producto
+AFTER UPDATE ON stock_productos
+FOR EACH ROW
+BEGIN
+  UPDATE productos
+  SET stock_producto = NEW.ingreso_stock
+  WHERE id_producto = NEW.id_producto;
+END //
+DELIMITER ;
