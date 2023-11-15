@@ -119,6 +119,9 @@ CREATE TABLE IF NOT EXISTS pedidos(
     total_pedido DECIMAL(7,2) NOT NULL
 );
 
+ALTER TABLE pedidos MODIFY COLUMN fecha_realizado_pedido DATE DEFAULT NOW();
+ALTER TABLE pedidos MODIFY COLUMN hora_realizado_pedido TIME DEFAULT NOW();
+
 CREATE TABLE IF NOT EXISTS detalles_pedido(
     id_detalle_pedido INT AUTO_INCREMENT NOT NULL UNIQUE,
     cantidad_producto INT NOT NULL,
