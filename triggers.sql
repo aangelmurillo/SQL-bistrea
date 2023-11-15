@@ -18,6 +18,7 @@ BEGIN
 END //
 DELIMITER ;
 
+
 /*Cantidad de stock en productos*/
 DELIMITER //
 DROP TRIGGER IF EXISTS actualizar_stock_producto //
@@ -28,5 +29,21 @@ BEGIN
   UPDATE productos
   SET stock_producto = NEW.ingreso_stock
   WHERE id_producto = NEW.id_producto;
+END //
+DELIMITER ;
+
+
+/*nom_cafe segun mi id_tipo_cafe*/
+DELIMITER //
+CREATE TRIGGER actualizar_nom_cafe
+BEFORE INSERT ON detalles_pedido_tipo_cafe
+FOR EACH ROW
+BEGIN
+  DECLARE cafe_nombre VARCHAR(15);
+  SELECT tipo_cafe INTO cafe_nombre
+  FROM tipos_cafe
+  WHERE id_tipo_cafe = NEW.id_tipo_cafe;
+
+  SET NEW.nom_cafe = cafe_nombre;
 END //
 DELIMITER ;
