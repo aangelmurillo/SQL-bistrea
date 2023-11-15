@@ -217,3 +217,45 @@ BEGIN
   WHERE id_producto = NEW.id_producto;
 END //
 DELIMITER ;
+
+
+
+/*PROCEDIMIENTOS ALMACENADOS*/
+/*Validacion y verifacion en stock al hacer un pedido*/
+DELIMITER //
+CREATE PROCEDURE pedido_checador_stock(IN pedido_id_ingresado INT, IN cantidad_pedido_solicitada INT)
+BEGIN
+  DECLARE stock_disponible INT;
+  
+  START TRANSACTION;
+  SELECT ingreso_stock INTO stock_disponible
+  FROM stock_productos
+  WHERE id_producto = (SELECT id_producto FROM detalles_pedido WHERE id_pedido = pedido_id_ingresado);
+
+  IF cantidad_pedido_solicitada > 0 AND stock_disponible >= cantidad_pedido_solicitada THEN
+    UPDATE stock_productos
+    SET ingreso_stock = ingreso_stock - cantidad_pedido_solicitada
+    WHERE id_producto = (SELECT id_producto FROM detalles_pedido WHERE id_pedido = pedido_id_ingresado);
+	
+    UPDATE detalles_pedido
+    SET cantidad_producto = cantidad_producto + cantidad_pedido_solicitada
+    WHERE id_pedido = pedido_id_ingresado;
+    COMMIT;
+    SELECT 'Pedido realizado con éxito.' AS mensaje;
+
+  ELSE
+    ROLLBACK;
+    SELECT 'No hay suficiente stock para completar el pedido.' AS mensaje;
+  END IF;
+END //
+DELIMITER ;
+
+/*Ejemplos de proalmacenado (pedido_checador_stock)*/
+SELECT * FROM pedidos;
+SELECT * FROM detalles_pedido;
+SELECT * FROM productos;
+SELECT * FROM stock_productos;
+UPDATE stock_productos SET ingreso_stock=500 WHERE id_stock=1;
+CALL pedido_checador_stock(1, 500);
+
+
