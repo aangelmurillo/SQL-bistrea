@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS stock_productos(
     PRIMARY KEY(id_stock),
     FOREIGN KEY(id_producto) REFERENCES productos(id_producto)
 );
+ALTER TABLE stock_productos MODIFY COLUMN fecha_ingreso_stock DATETIME DEFAULT NOW();
 
 CREATE TABLE IF NOT EXISTS pedidos(
     id_pedido INT AUTO_INCREMENT NOT NULL UNIQUE,
