@@ -47,3 +47,26 @@ BEGIN
   SET NEW.nom_cafe = cafe_nombre;
 END //
 DELIMITER ;
+
+/*Actualizacion de estado_producto, si en stock hay 0 productos*/
+DELIMITER //
+CREATE TRIGGER actualizar_estado_producto
+AFTER UPDATE ON stock_productos
+FOR EACH ROW
+BEGIN
+  DECLARE nueva_cantidad INT;
+  SELECT ingreso_stock INTO nueva_cantidad
+  FROM stock_productos
+  WHERE id_stock = NEW.id_stock;
+  
+  IF nueva_cantidad > 0 THEN
+    UPDATE productos
+    SET estado_producto = 1
+    WHERE id_producto = NEW.id_producto;
+  ELSE
+    UPDATE productos
+    SET estado_producto = 0
+    WHERE id_producto = NEW.id_producto;
+  END IF;
+END //
+DELIMITER ;

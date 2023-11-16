@@ -35,6 +35,7 @@ CALL bienvenida_usuario(4);
 
 
 /*Validacion y verifacion en stock al hacer un pedido*/
+/*Aqui agarre uno de los pedidos que ya estaban, al pasarlo a php, poner el pedido id del usuario correspondiente*/
 DELIMITER //
 CREATE PROCEDURE pedido_checador_stock(IN pedido_id_ingresado INT, IN cantidad_pedido_solicitada INT)
 BEGIN
