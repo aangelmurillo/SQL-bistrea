@@ -70,3 +70,13 @@ BEGIN
   END IF;
 END //
 DELIMITER ;
+
+/*Fecha y hora actuales en stock_productos al actualizar*/
+DELIMITER //
+CREATE TRIGGER actualizar_fecha_stock
+BEFORE UPDATE ON stock_productos
+FOR EACH ROW
+BEGIN
+SET NEW.fecha_ingreso_stock = NOW();
+END//
+DELIMITER ;
