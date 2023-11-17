@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS empleados(
     id_empleado INT AUTO_INCREMENT NOT NULL UNIQUE,
     curp_empleado VARCHAR(18) NOT NULL UNIQUE,
     rfc_empleado VARCHAR(13) NOT NULL UNIQUE,
+    nss_empleado VARCHAR (12) NOT NULL UNIQUE,
     salario_mes_empleado DECIMAL(8,2) NOT NULL,
     id_usuario INT NOT NULL,
     PRIMARY KEY(id_empleado),
