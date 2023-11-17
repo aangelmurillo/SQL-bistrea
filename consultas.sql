@@ -153,3 +153,4 @@ GROUP BY pedidos.id_pedido, Nombre, "Hora de Entrega", Notas, Total
 ORDER BY pedidos.fecha_realizado_pedido, pedidos.hora_realizado_pedido;
 
 
+.

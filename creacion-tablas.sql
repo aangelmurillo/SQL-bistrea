@@ -165,3 +165,5 @@ CREATE TABLE IF NOT EXISTS pedidos_clientes(
     FOREIGN KEY(id_pedido) REFERENCES pedidos(id_pedido),
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
 );
+
+/**/

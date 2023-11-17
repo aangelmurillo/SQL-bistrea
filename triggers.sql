@@ -80,3 +80,4 @@ BEGIN
 SET NEW.fecha_ingreso_stock = NOW();
 END//
 DELIMITER ;
+/**/
