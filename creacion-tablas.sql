@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS pedidos(
     estado_pedido DEFAULT "En solicitud" ENUM("En solicitud", "En proceso", "Entregado") NOT NULL,
     info_pedido VARCHAR(255),
     op_pedido ENUM("Llevar", "Comer ahí") NOT NULL,
-    id_empleado INT NOT NULL,
+    id_empleado INT NOT NULL DEFAULT (1),
     FOREIGN KEY(id_empleado) REFERENCES empleados(id_empleado),
     PRIMARY KEY(id_pedido),
     nombre_cliente_pedido VARCHAR(120) NOT NULL,
