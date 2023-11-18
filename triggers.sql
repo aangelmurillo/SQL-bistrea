@@ -80,4 +80,16 @@ BEGIN
 SET NEW.fecha_ingreso_stock = NOW();
 END//
 DELIMITER ;
-/**/
+
+/*precio_unitario segun precio unitario de productos*/
+DELIMITER //
+CREATE TRIGGER actualizar_precio_unitario 
+BEFORE INSERT ON detalles_pedido
+FOR EACH ROW
+BEGIN
+  DECLARE precio_por_unidad DECIMAL (6,2);
+  SELECT precio_unitario_producto INTO precio_por_unidad
+  FROM productos WHERE id_producto= NEW.id_producto;
+  SET NEW.precio_unitario = precio_por_unidad;
+END //
+DELIMITER ;
