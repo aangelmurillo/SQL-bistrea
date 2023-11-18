@@ -93,3 +93,21 @@ BEGIN
   SET NEW.precio_unitario = precio_por_unidad;
 END //
 DELIMITER ;
+
+/*Nombre cleinte en pedidos. Se ejecuta cunado en pedidos_clientes se establece a que 
+cliente pertenece el pedido*/
+DELIMITER //
+CREATE TRIGGER nombre_cliente_pedidos
+AFTER INSERT ON pedidos_clientes
+FOR EACH ROW
+BEGIN
+    DECLARE primer_nombre VARCHAR(50);
+    SELECT SUBSTRING_INDEX(usuarios.nombre_usuario, ' ', 1) INTO primer_nombre
+    FROM usuarios
+    WHERE usuarios.id_usuario = NEW.id_usuario;
+
+    UPDATE pedidos
+    SET nombre_cliente_pedido = primer_nombre
+    WHERE id_pedido = NEW.id_pedido;
+END //
+DELIMITER ;
