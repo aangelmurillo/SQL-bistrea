@@ -159,6 +159,8 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe(
     FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id_detalle_pedido),
     FOREIGN KEY(id_tipo_cafe) REFERENCES tipos_cafe(id_tipo_cafe)
 );
+ALTER TABLE detalles_pedido_tipo_cafe MODIFY COLUMN id_tipo_cafe INT NOT NULL DEFAULT (1);
+
 
 CREATE TABLE IF NOT EXISTS pedidos_clientes(
     id_pedido_cliente INT NOT NULL AUTO_INCREMENT UNIQUE,
