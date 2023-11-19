@@ -150,6 +150,19 @@ BEGIN
 END //
 DELIMITER ;
 
+/*Se actualiza (al insertar) el subtotal_pedido de detalles_pedido por el prodycto extra*/
+DELIMITER //
+CREATE TRIGGER insert_actualizar_subtotal_pedido_producto_extra
+AFTER INSERT ON detalles_pedido_pe
+FOR EACH ROW
+BEGIN
+    UPDATE detalles_pedido
+    SET subtotal_pedido = (SELECT precio_unitario * cantidad_producto
+                          FROM detalles_pedido
+                          WHERE id_detalle_pedido = NEW.id_detalle_pedido) + NEW.precio_pe
+    WHERE id_detalle_pedido = NEW.id_detalle_pedido;
+END //
+DELIMITER ;
 
 /*al hacer update en id_producto_extra cambia el precio_pe*/
 DELIMITER //
