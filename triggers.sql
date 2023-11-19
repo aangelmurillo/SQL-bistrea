@@ -111,3 +111,17 @@ BEGIN
     WHERE id_pedido = NEW.id_pedido;
 END //
 DELIMITER ;
+
+/*precio_unitario segun precio pe de productos_extra*/
+DELIMITER //
+CREATE TRIGGER precio_unitario_prod_extra
+BEFORE INSERT ON detalles_pedido_pe
+FOR EACH ROW
+BEGIN
+  DECLARE precio_por_unidad DECIMAL (5,2);
+  SELECT precio_unitario_pe INTO precio_por_unidad
+  FROM productos_extra WHERE id_producto_extra= NEW.id_producto_extra;
+  
+  SET NEW.precio_pe = precio_por_unidad;
+END //
+DELIMITER ;
