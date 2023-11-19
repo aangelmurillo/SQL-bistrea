@@ -149,3 +149,15 @@ BEGIN
     WHERE id_detalle_pedido = NEW.id_detalle_pedido;
 END //
 DELIMITER ;
+
+/*Actualizacion de hora_entrega_pedido cuando sea entregado en pedidos*/
+DELIMITER //
+CREATE TRIGGER actualizar_hora_entrega_pedido
+BEFORE UPDATE ON pedidos
+FOR EACH ROW
+BEGIN
+    IF NEW.estado_pedido = 'Entregado' THEN
+        SET NEW.hora_entrega_pedido = NOW();
+    END IF;
+END //
+DELIMITER ;
