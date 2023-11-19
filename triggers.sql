@@ -139,7 +139,7 @@ DELIMITER ;
 /*Se actualiza el subtotal_pedido de detalles_pedido por el prodycto extra*/
 DELIMITER //
 CREATE TRIGGER actualizar_subtotal_pedido_producto_extra
-AFTER INSERT ON detalles_pedido_pe
+AFTER UPDATE ON detalles_pedido_pe
 FOR EACH ROW
 BEGIN
     UPDATE detalles_pedido
@@ -147,6 +147,21 @@ BEGIN
                           FROM detalles_pedido 
                           WHERE id_detalle_pedido = NEW.id_detalle_pedido) + NEW.precio_pe
     WHERE id_detalle_pedido = NEW.id_detalle_pedido;
+END //
+DELIMITER ;
+
+
+/*al hacer update en id_producto_extra cambia el precio_pe*/
+DELIMITER //
+CREATE TRIGGER update_precio_unitario_prod_extra
+BEFORE UPDATE ON detalles_pedido_pe
+FOR EACH ROW
+BEGIN
+  DECLARE precio_por_unidad DECIMAL (5,2);
+  SELECT precio_unitario_pe INTO precio_por_unidad
+  FROM productos_extra WHERE id_producto_extra= NEW.id_producto_extra;
+
+  SET NEW.precio_pe = precio_por_unidad;
 END //
 DELIMITER ;
 
