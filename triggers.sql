@@ -125,3 +125,27 @@ BEGIN
   SET NEW.precio_pe = precio_por_unidad;
 END //
 DELIMITER ;
+
+/*Se saca el subtotal_pedido de detallles_pedido*/
+DELIMITER //
+CREATE TRIGGER subtotal_pedido
+BEFORE INSERT ON detalles_pedido
+FOR EACH ROW
+BEGIN
+    SET NEW.subtotal_pedido = NEW.precio_unitario * NEW.cantidad_producto;
+END //
+DELIMITER ;
+
+/*Se actualiza el subtotal_pedido de detalles_pedido por el prodycto extra*/
+DELIMITER //
+CREATE TRIGGER actualizar_subtotal_pedido_producto_extra
+AFTER INSERT ON detalles_pedido_pe
+FOR EACH ROW
+BEGIN
+    UPDATE detalles_pedido
+    SET subtotal_pedido = (SELECT precio_unitario * cantidad_producto 
+                          FROM detalles_pedido 
+                          WHERE id_detalle_pedido = NEW.id_detalle_pedido) + NEW.precio_pe
+    WHERE id_detalle_pedido = NEW.id_detalle_pedido;
+END //
+DELIMITER ;
