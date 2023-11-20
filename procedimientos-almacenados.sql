@@ -71,3 +71,32 @@ SELECT * FROM productos;
 SELECT * FROM stock_productos;
 UPDATE stock_productos SET ingreso_stock=500 WHERE id_stock=1;
 CALL pedido_checador_stock(1, 500);
+
+/*Validacion de correo y contrasena*/
+DELIMITER //
+CREATE PROCEDURE validacion_cuenta_correo_contra(IN correo_ingresado VARCHAR(120), IN contrasena_ingresada VARCHAR(100))
+BEGIN
+    DECLARE usuario_id INT;
+    DECLARE mensaje VARCHAR(255);
+
+    SELECT id_usuario INTO usuario_id
+    FROM usuarios
+    WHERE email_usuario = correo_ingresado;
+    
+    IF usuario_id IS NOT NULL THEN
+        IF (SELECT COUNT(*)
+            FROM usuarios
+            WHERE id_usuario = usuario_id AND contrasena_usuario = contrasena_ingresada) > 0 THEN
+            SET mensaje = 'Inicio de sesión exitoso';
+        ELSE
+            SET mensaje = 'Contraseña no válida';
+        END IF;
+    ELSE
+        SET mensaje = 'Correo no válido';
+    END IF;
+
+    SELECT mensaje AS resultado;
+END //
+DELIMITER ;
+
+ CALL validacion_cuenta_correo_contra ('aangelmurv@gmail.com', '1234');
