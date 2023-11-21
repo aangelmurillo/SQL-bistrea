@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido(
     PRIMARY KEY(id_detalle_pedido),
     FOREIGN KEY(id_pedido) REFERENCES pedidos(id_pedido)
 );
+ALTER TABLE detalles_pedido DROP COLUMN tipo_pago_pedido;
 
 CREATE TABLE IF NOT EXISTS detalles_pedido_pe(
     id_detalle_pedido_pe INT AUTO_INCREMENT NOT NULL UNIQUE,
