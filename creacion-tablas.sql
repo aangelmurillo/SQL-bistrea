@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS categorias (
     nom_categoria VARCHAR(25) NOT NULL UNIQUE,
     img_categoria VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY(id_categoria)
+
 );
 
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -42,7 +43,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     apellido_p_usuario VARCHAR(20) NOT NULL,
     apellido_m_usuario VARCHAR(20),
     email_usuario VARCHAR(120) NOT NULL UNIQUE,
-    contrasena_usuario VARCHAR(100) NOT NULL,
+    contrasena_usuario VARCHAR(255) NOT NULL,
     foto_perfil_usuario VARCHAR(255) NOT NULL DEFAULT 'foto-usuario.jpg',
     telefono_usuario VARCHAR(25) NOT NULL UNIQUE,
     status_usuario TINYINT DEFAULT 1,
@@ -74,9 +75,7 @@ CREATE TABLE IF NOT EXISTS resenas (
 CREATE TABLE IF NOT EXISTS configs_carusel (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     img_config_carusel VARCHAR(255) NOT NULL,
-    id_empleado INT NOT NULL,
     PRIMARY KEY(id_config_carusel),
-    FOREIGN KEY(id_empleado) REFERENCES empleados(id_empleado)
 );
 
 CREATE TABLE IF NOT EXISTS productos (
@@ -133,7 +132,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido (
     precio_unitario DECIMAL(6,2) NOT NULL,
     id_producto INT NOT NULL,
     FOREIGN KEY(id_producto) REFERENCES productos(id_producto),
-    tipo_pago_pedido ENUM('Efectivo', 'Paypal') NOT NULL,
+    tipo_pago_pedido ENUM('Efectivo', 'Paypal') DEFAULT 'Efectivo' NOT NULL,
     subtotal_pedido DECIMAL(6,2) NOT NULL,
     id_pedido INT NOT NULL,
     PRIMARY KEY(id_detalle_pedido),
