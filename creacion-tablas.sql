@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS resenas (
 CREATE TABLE IF NOT EXISTS configs_carusel (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     img_config_carusel VARCHAR(255) NOT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS productos (
