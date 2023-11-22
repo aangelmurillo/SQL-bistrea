@@ -6,34 +6,34 @@ USE cafeteria;
 CREATE TABLE IF NOT EXISTS roles (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nombre_rol VARCHAR(30) NOT NULL UNIQUE,
-    PRIMARY KEY(id_rol)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS medidas (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nom_medida VARCHAR(15) NOT NULL,
     uni_medida VARCHAR(10) NOT NULL,
-    PRIMARY KEY(id_medida)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS tipos_cafe (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     tipo_cafe VARCHAR(15) NOT NULL UNIQUE,
-    PRIMARY KEY(id_tipo_cafe)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS productos_extra (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nombre_pe VARCHAR(20) NOT NULL UNIQUE,
     precio_unitario_pe DECIMAL(7,2) NOT NULL,
-    PRIMARY KEY(id_producto_extra)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS categorias (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nom_categoria VARCHAR(25) NOT NULL UNIQUE,
     img_categoria VARCHAR(255) NOT NULL UNIQUE,
-    PRIMARY KEY(id_categoria)
+    PRIMARY KEY(id)
 
 );
 
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     status_usuario TINYINT DEFAULT 1,
     creado_en_usuario TIMESTAMP NOT NULL,
     id_rol INT NOT NULL,
-    PRIMARY KEY(id_usuario),
-    FOREIGN KEY(id_rol) REFERENCES roles(id_rol)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_rol) REFERENCES roles(id)
 );
 
 CREATE TABLE IF NOT EXISTS empleados (
@@ -60,22 +60,22 @@ CREATE TABLE IF NOT EXISTS empleados (
     nss_empleado VARCHAR (12) NOT NULL UNIQUE,
     salario_mes_empleado DECIMAL(8,2) NOT NULL,
     id_usuario INT NOT NULL,
-    PRIMARY KEY(id_empleado),
-    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE IF NOT EXISTS resenas (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     comentario_resena VARCHAR(255) NOT NULL,
     id_usuario INT NOT NULL,
-    PRIMARY KEY(id_resena),
-    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE IF NOT EXISTS configs_carusel (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
     img_config_carusel VARCHAR(255) NOT NULL,
-    PRIMARY KEY(id_config_carusel),
+    PRIMARY KEY(id),
 );
 
 CREATE TABLE IF NOT EXISTS productos (
@@ -87,13 +87,13 @@ CREATE TABLE IF NOT EXISTS productos (
     img_producto VARCHAR(255) NOT NULL,
     slug_producto VARCHAR(120) NOT NULL,
     id_categoria INT NOT NULL,
-    FOREIGN KEY(id_categoria) REFERENCES categorias(id_categoria),
+    FOREIGN KEY(id_categoria) REFERENCES categorias(id),
     especialidad_producto ENUM('Caliente', 'Frío', 'Postre') NOT NULL,
     estado_producto TINYINT DEFAULT 1,
     medida_producto INT NOT NULL,
     id_medida INT NOT NULL,
-    PRIMARY KEY(id_producto),
-    FOREIGN KEY(id_medida) REFERENCES medidas(id_medida)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_medida) REFERENCES medidas(id)
 );
 
 CREATE TABLE IF NOT EXISTS stock_productos (
@@ -101,8 +101,8 @@ CREATE TABLE IF NOT EXISTS stock_productos (
     ingreso_stock INT NOT NULL,
     fecha_ingreso_stock DATETIME NOT NULL,
     id_producto INT NOT NULL,
-    PRIMARY KEY(id_stock),
-    FOREIGN KEY(id_producto) REFERENCES productos(id_producto)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_producto) REFERENCES productos(id)
 );
 ALTER TABLE stock_productos MODIFY COLUMN fecha_ingreso_stock DATETIME DEFAULT NOW();
 
@@ -115,8 +115,8 @@ CREATE TABLE IF NOT EXISTS pedidos (
     info_pedido VARCHAR(255),
     op_pedido ENUM('Llevar', 'Comer ahí') NOT NULL,
     id_empleado INT NOT NULL DEFAULT 1,
-    FOREIGN KEY(id_empleado) REFERENCES empleados(id_empleado),
-    PRIMARY KEY(id_pedido),
+    FOREIGN KEY(id_empleado) REFERENCES empleados(id),
+    PRIMARY KEY(id),
     nombre_cliente_pedido VARCHAR(120) NOT NULL,
     total_pedido DECIMAL(7,2) NOT NULL
 );
@@ -131,12 +131,12 @@ CREATE TABLE IF NOT EXISTS detalles_pedido (
     cantidad_producto INT NOT NULL,
     precio_unitario DECIMAL(6,2) NOT NULL,
     id_producto INT NOT NULL,
-    FOREIGN KEY(id_producto) REFERENCES productos(id_producto),
+    FOREIGN KEY(id_producto) REFERENCES productos(id),
     tipo_pago_pedido ENUM('Efectivo', 'Paypal') DEFAULT 'Efectivo' NOT NULL,
     subtotal_pedido DECIMAL(6,2) NOT NULL,
     id_pedido INT NOT NULL,
-    PRIMARY KEY(id_detalle_pedido),
-    FOREIGN KEY(id_pedido) REFERENCES pedidos(id_pedido)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_pedido) REFERENCES pedidos(id)
 );
 ALTER TABLE detalles_pedido DROP COLUMN tipo_pago_pedido;
 
@@ -145,9 +145,9 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_pe (
     precio_pe DECIMAL(5,2) NOT NULL,
     id_detalle_pedido INT NOT NULL,
     id_producto_extra INT NOT NULL,
-    PRIMARY KEY(id_detalle_pedido_pe),
-    FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id_detalle_pedido),
-    FOREIGN KEY(id_producto_extra) REFERENCES productos_extra(id_producto_extra)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id),
+    FOREIGN KEY(id_producto_extra) REFERENCES productos_extra(id)
 );
 ALTER TABLE detalles_pedido_pe MODIFY COLUMN id_producto_extra INT NOT NULL DEFAULT 1;
 
@@ -157,8 +157,8 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe (
     id_detalle_pedido INT NOT NULL,
     id_tipo_cafe INT NOT NULL,
     PRIMARY KEY(id_detalles_pedido_tp),
-    FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id_detalle_pedido),
-    FOREIGN KEY(id_tipo_cafe) REFERENCES tipos_cafe(id_tipo_cafe)
+    FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id),
+    FOREIGN KEY(id_tipo_cafe) REFERENCES tipos_cafe(id)
 );
 ALTER TABLE detalles_pedido_tipo_cafe MODIFY COLUMN id_tipo_cafe INT NOT NULL DEFAULT 1;
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS pedidos_clientes (
     id INT NOT NULL AUTO_INCREMENT UNIQUE,
     id_pedido INT NOT NULL,
     id_usuario INT NOT NULL,
-    PRIMARY KEY(id_pedido_cliente),
-    FOREIGN KEY(id_pedido) REFERENCES pedidos(id_pedido),
-    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_pedido) REFERENCES pedidos(id),
+    FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
