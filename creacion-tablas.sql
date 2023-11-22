@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe (
     nom_cafe ENUM('Regular', 'Descafeinado') NOT NULL,
     id_detalle_pedido INT NOT NULL,
     id_tipo_cafe INT NOT NULL,
-    PRIMARY KEY(id_detalles_pedido_tp),
+    PRIMARY KEY(id),
     FOREIGN KEY(id_detalle_pedido) REFERENCES detalles_pedido(id),
     FOREIGN KEY(id_tipo_cafe) REFERENCES tipos_cafe(id)
 );
