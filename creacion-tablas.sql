@@ -1,42 +1,43 @@
+DROP DATABASE IF EXISTS cafeteria;
 CREATE DATABASE IF NOT EXISTS cafeteria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE cafeteria;
 
 CREATE TABLE IF NOT EXISTS roles (
-    id_rol INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nombre_rol VARCHAR(30) NOT NULL UNIQUE,
     PRIMARY KEY(id_rol)
 );
 
 CREATE TABLE IF NOT EXISTS medidas (
-    id_medida INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nom_medida VARCHAR(15) NOT NULL,
     uni_medida VARCHAR(10) NOT NULL,
     PRIMARY KEY(id_medida)
 );
 
 CREATE TABLE IF NOT EXISTS tipos_cafe (
-    id_tipo_cafe INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     tipo_cafe VARCHAR(15) NOT NULL UNIQUE,
     PRIMARY KEY(id_tipo_cafe)
 );
 
 CREATE TABLE IF NOT EXISTS productos_extra (
-    id_producto_extra INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nombre_pe VARCHAR(20) NOT NULL UNIQUE,
     precio_unitario_pe DECIMAL(7,2) NOT NULL,
     PRIMARY KEY(id_producto_extra)
 );
 
 CREATE TABLE IF NOT EXISTS categorias (
-    id_categoria INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nom_categoria VARCHAR(25) NOT NULL UNIQUE,
     img_categoria VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY(id_categoria)
 );
 
 CREATE TABLE IF NOT EXISTS usuarios (
-    id_usuario INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nombre_usuario VARCHAR(50) NOT NULL,
     apellido_p_usuario VARCHAR(20) NOT NULL,
     apellido_m_usuario VARCHAR(20),
@@ -52,7 +53,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 CREATE TABLE IF NOT EXISTS empleados (
-    id_empleado INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     curp_empleado VARCHAR(18) NOT NULL UNIQUE,
     rfc_empleado VARCHAR(13) NOT NULL UNIQUE,
     nss_empleado VARCHAR (12) NOT NULL UNIQUE,
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS empleados (
 );
 
 CREATE TABLE IF NOT EXISTS resenas (
-    id_resena INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     comentario_resena VARCHAR(255) NOT NULL,
     id_usuario INT NOT NULL,
     PRIMARY KEY(id_resena),
@@ -71,7 +72,7 @@ CREATE TABLE IF NOT EXISTS resenas (
 );
 
 CREATE TABLE IF NOT EXISTS configs_carusel (
-    id_config_carusel INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     img_config_carusel VARCHAR(255) NOT NULL,
     id_empleado INT NOT NULL,
     PRIMARY KEY(id_config_carusel),
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS configs_carusel (
 );
 
 CREATE TABLE IF NOT EXISTS productos (
-    id_producto INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     nombre_producto VARCHAR(120) NOT NULL,
     descripcion_producto VARCHAR(200),
     precio_unitario_producto DECIMAL(6,2) NOT NULL,
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS productos (
 );
 
 CREATE TABLE IF NOT EXISTS stock_productos (
-    id_stock INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     ingreso_stock INT NOT NULL,
     fecha_ingreso_stock DATETIME NOT NULL,
     id_producto INT NOT NULL,
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS stock_productos (
 ALTER TABLE stock_productos MODIFY COLUMN fecha_ingreso_stock DATETIME DEFAULT NOW();
 
 CREATE TABLE IF NOT EXISTS pedidos (
-    id_pedido INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     fecha_realizado_pedido DATE NOT NULL,
     hora_realizado_pedido TIME NOT NULL,
     hora_entrega_pedido TIME NOT NULL,
@@ -127,7 +128,7 @@ ALTER TABLE pedidos MODIFY COLUMN nombre_cliente_pedido VARCHAR (120) NULL;
 ALTER TABLE pedidos MODIFY COLUMN hora_entrega_pedido TIME NULL;
 
 CREATE TABLE IF NOT EXISTS detalles_pedido (
-    id_detalle_pedido INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     cantidad_producto INT NOT NULL,
     precio_unitario DECIMAL(6,2) NOT NULL,
     id_producto INT NOT NULL,
@@ -141,7 +142,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido (
 ALTER TABLE detalles_pedido DROP COLUMN tipo_pago_pedido;
 
 CREATE TABLE IF NOT EXISTS detalles_pedido_pe (
-    id_detalle_pedido_pe INT AUTO_INCREMENT NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT NOT NULL UNIQUE,
     precio_pe DECIMAL(5,2) NOT NULL,
     id_detalle_pedido INT NOT NULL,
     id_producto_extra INT NOT NULL,
@@ -152,7 +153,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_pe (
 ALTER TABLE detalles_pedido_pe MODIFY COLUMN id_producto_extra INT NOT NULL DEFAULT 1;
 
 CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe (
-    id_detalles_pedido_tp INT AUTO_INCREMENT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     nom_cafe ENUM('Regular', 'Descafeinado') NOT NULL,
     id_detalle_pedido INT NOT NULL,
     id_tipo_cafe INT NOT NULL,
@@ -163,7 +164,7 @@ CREATE TABLE IF NOT EXISTS detalles_pedido_tipo_cafe (
 ALTER TABLE detalles_pedido_tipo_cafe MODIFY COLUMN id_tipo_cafe INT NOT NULL DEFAULT 1;
 
 CREATE TABLE IF NOT EXISTS pedidos_clientes (
-    id_pedido_cliente INT NOT NULL AUTO_INCREMENT UNIQUE,
+    id INT NOT NULL AUTO_INCREMENT UNIQUE,
     id_pedido INT NOT NULL,
     id_usuario INT NOT NULL,
     PRIMARY KEY(id_pedido_cliente),
