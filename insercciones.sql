@@ -10,7 +10,7 @@ INSERT INTO productos_extra (nombre_pe, precio_unitario_pe)
 VALUES ("Leche entera", 0.00), ("Leche almendras", 15.00), ("Leche de avena", 10.00);
 
 INSERT INTO categorias (nom_categoria, img_categoria) 
-VALUES ("Postres", "postres.jpg"), ("Cafes", "cafes.jpg");
+VALUES ("Postres"), ("Cafes");
 
 INSERT INTO usuarios 
 (nombre_usuario, apellido_p_usuario, apellido_m_usuario, email_usuario, contrasena_usuario, 
