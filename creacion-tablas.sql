@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS productos (
     PRIMARY KEY(id),
     FOREIGN KEY(id_medida) REFERENCES medidas(id)
 );
+ALTER TABLE productos MODIFY COLUMN estado_producto TINYINT(4) NULL DEFAULT 1; 
 
 CREATE TABLE IF NOT EXISTS stock_productos (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
