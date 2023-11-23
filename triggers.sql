@@ -17,6 +17,8 @@ BEGIN
 END //
 DELIMITER ;
 
+SELECT * FROM productos;
+SELECT * FROM stock_productos;
 /* Cantidad de stock en productos al insertar*/
 DELIMITER //
 DROP TRIGGER IF EXISTS actualizar_stock_producto_insertar //
@@ -26,7 +28,7 @@ FOR EACH ROW
 BEGIN
   UPDATE productos
   SET stock_producto = NEW.ingreso_stock
-  WHERE id_producto = NEW.id_producto;
+  WHERE id = NEW.id_producto;
 END //
 DELIMITER ;
 
@@ -40,7 +42,7 @@ FOR EACH ROW
 BEGIN
   UPDATE productos
   SET stock_producto = NEW.ingreso_stock
-  WHERE id_producto = NEW.id_producto;
+  WHERE id = NEW.id_producto;
 END //
 DELIMITER ;
 
@@ -199,4 +201,3 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
-
