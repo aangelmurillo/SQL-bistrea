@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS pedidos (
     total_pedido DECIMAL(7,2) NOT NULL
 );
 
+ALTER TABLE pedidos MODIFY COLUMN total_pedido DECIMAL (7,2) NULL;
 ALTER TABLE pedidos MODIFY COLUMN fecha_realizado_pedido DATE DEFAULT NOW();
 ALTER TABLE pedidos MODIFY COLUMN hora_realizado_pedido TIME DEFAULT NOW();
 ALTER TABLE pedidos MODIFY COLUMN nombre_cliente_pedido VARCHAR (120) NULL;
@@ -175,3 +176,7 @@ CREATE TABLE IF NOT EXISTS pedidos_clientes (
     FOREIGN KEY(id_pedido) REFERENCES pedidos(id),
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
+
+ALTER TABLE usuarios MODIFY COLUMN foto_perfil_usuario BLOB NOT NULL;
+ALTER TABLE productos MODIFY COLUMN img_producto BLOB NOT NULL;
+ALTER TABLE configs_carusel MODIFY COLUMN img_config_carusel BLOB NOT NULL;
