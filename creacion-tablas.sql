@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS resenas (
     PRIMARY KEY(id),
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
+ALTER TABLE resenas MODIFY COLUMN comentario_resena LONGTEXT NOT NULL;
 
 CREATE TABLE IF NOT EXISTS configs_carusel (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
