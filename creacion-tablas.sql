@@ -131,6 +131,7 @@ ALTER TABLE pedidos MODIFY COLUMN fecha_realizado_pedido DATE DEFAULT NOW();
 ALTER TABLE pedidos MODIFY COLUMN hora_realizado_pedido TIME DEFAULT NOW();
 ALTER TABLE pedidos MODIFY COLUMN nombre_cliente_pedido VARCHAR (120) NULL;
 ALTER TABLE pedidos MODIFY COLUMN hora_entrega_pedido TIME NULL;
+ALTER TABLE pedidos MODIFY COLUMN estado_pedido ENUM ("En solicitud", "En proceso", "Entregado") NOT NULL DEFAULT 'En proceso';
 
 CREATE TABLE IF NOT EXISTS detalles_pedido (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
