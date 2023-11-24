@@ -95,3 +95,23 @@ END //
 DELIMITER ;
 
 CALL validacion_cuenta_correo_contra('aangelmurv@gmail.com', '1234');
+
+
+
+/*SUMATORIA DE SOTCK_PRODUCTOS AL ACTUALIZAR*/
+DELIMITER //
+CREATE PROCEDURE ActualizarIngresoStockProducto(IN p_id_stock_producto INT, IN p_nuevo_ingreso_stock INT)
+BEGIN
+    DECLARE actual_ingreso_stock INT;
+    SELECT ingreso_stock INTO actual_ingreso_stock
+    FROM stock_productos
+    WHERE id = p_id_stock_producto;
+
+    UPDATE stock_productos
+    SET ingreso_stock = actual_ingreso_stock + p_nuevo_ingreso_stock
+    WHERE id = p_id_stock_producto;
+END //
+DELIMITER ;
+SELECT * FROM stock_productos;
+SELECT * FROM productos;
+CALL ActualizarIngresoStockProducto(1, 5);
