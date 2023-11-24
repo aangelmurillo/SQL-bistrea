@@ -177,6 +177,7 @@ CREATE TABLE IF NOT EXISTS pedidos_clientes (
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
 
-ALTER TABLE usuarios MODIFY COLUMN foto_perfil_usuario BLOB NOT NULL;
-ALTER TABLE productos MODIFY COLUMN img_producto BLOB NOT NULL;
-ALTER TABLE configs_carusel MODIFY COLUMN img_config_carusel BLOB NOT NULL;
+
+ALTER TABLE usuarios MODIFY COLUMN foto_perfil_usuario VARCHAR (255) NOT NULL DEFAULT 'fotoperfil.jpg';
+ALTER TABLE productos MODIFY COLUMN img_producto VARCHAR (255) NOT NULL;
+ALTER TABLE configs_carusel MODIFY COLUMN img_config_carusel VARCHAR (255) NOT NULL;
