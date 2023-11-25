@@ -12,6 +12,8 @@ SELECT * FROM pedidos;
 SELECT * FROM pedidos_clientes;
 SELECT * FROM detalles_pedido;
 SELECT * FROM detalles_pedido_pe;
+SELECT * FROM resenas;
+DESCRIBE resenas;
 DESCRIBE detalles_pedido_pe;
 DESCRIBE detalles_pedido;
 DESCRIBE pedidos_clientes;
@@ -51,4 +53,61 @@ INSERT INTO pedidos_clientes (id_pedido, id_usuario) VALUES (1, 4);
 INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (2, 3, 1);
 INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 1);
 INSERT INTO detalles_pedido_pe (id_detalle_pedido, id_producto_extra) VALUES (1, 3);
-UPDATE pedidos SET estado_pedido="En proceso" WHERE id=1;
+UPDATE pedidos SET estado_pedido="En solicitud" WHERE id=1;
+INSERT INTO resenas (comentario_resena, id_usuario) VALUES ("Diego del futuro, pasa integradora porfavor, si no me hago militar", "3");
+UPDATE pedidos SET estado_pedido="Entregado" WHERE id=1;
+ALTER TABLE resenas MODIFY COLUMN comentario_resena LONGTEXT NOT NULL;
+SELECT * from pedidos WHERE id=1;
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 2);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.2, 4, 2);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.6, 4, 2);
+UPDATE pedidos SET estado_pedido="Entregado" WHERE id=2;
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 3);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.2, 4, 3);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (4, 4, 3);
+UPDATE pedidos SET estado_pedido="Entregado" WHERE id=3;
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 4);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.2, 4, 4);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (4, 4, 4);
+UPDATE pedidos SET estado_pedido="Entregado" WHERE id=4;
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 5);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.2, 1, 5);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (4, 2, 5);
+UPDATE pedidos SET estado_pedido="Entregado" WHERE id=5;
+
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 6);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.2, 4, 6);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1.6, 4, 6);
+UPDATE pedidos SET estado_pedido="En solicitud" WHERE id=6;
+UPDATE stock_productos SET ingreso_stock = 3 WHERE id = 1;
+
+SELECT * FROM pedidos;
+SELECT * FROM detalles_pedido;
+/*PRUEBA DE TOTALPEDIDO*/
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 7);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 1, 7);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 2, 7);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 3, 7);
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 8);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 3, 8);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 2, 8);
+
+INSERT INTO pedidos (info_pedido, op_pedido, nombre_cliente_pedido) VALUES ("Chichonas", "Llevar", "Frank");
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 4, 9);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 3, 9);
+INSERT INTO detalles_pedido (cantidad_producto, id_producto, id_pedido) VALUES (1, 2, 9);
+DELETE FROM detalles_pedido WHERE id=28;
+UPDATE detalles_pedido SET cantidad_producto=2 WHERE id=27;
