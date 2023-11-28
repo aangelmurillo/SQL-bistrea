@@ -30,6 +30,38 @@ DECLARE iddeproducto INT;
 END //
 DELIMITER ;
 
+DELIMITER //
+DROP TRIGGER IF EXISTS canbtidad_stock_cancelado //
+CREATE TRIGGER cantidad_stock_cancelado
+AFTER UPDATE ON pedidos
+FOR EACH ROW
+BEGIN
+        DECLARE iddeproducto INT;
+        DECLARE ccantidadpedida INT;
+        DECLARE cantidad_pedida CURSOR FOR SELECT cantidad_producto, id_producto
+            FROM detalles_pedido
+            WHERE id_pedido = NEW.id;
+
+        DECLARE EXIT HANDLER FOR SQLSTATE '02000' BEGIN END;
+
+        OPEN cantidad_pedida;
+        BEGIN
+         LOOP
+            FETCH cantidad_pedida INTO ccantidadpedida, iddeproducto;
+            IF NEW.estado_pedido = 'Cancelado' THEN
+
+            UPDATE stock_productos
+            SET ingreso_stock = ingreso_stock + ccantidadpedida
+            WHERE id_producto = iddeproducto;
+            END IF;
+        END LOOP;
+        END;
+        CLOSE cantidad_pedida;
+END //
+DELIMITER ;
+
+
+
 /* Actualización de hora_entrega_pedido cuando sea entregado en pedidos */
 DELIMITER //
 DROP TRIGGER IF EXISTS actualizar_hora_entrega_pedido //
@@ -151,17 +183,6 @@ BEGIN
 END //
 DELIMITER ;
 
-/* Se saca el subtotal_pedido de detalles_pedido al updeitisar */
-DELIMITER //
-DROP TRIGGER IF EXISTS subtotal_pedido_update //
-CREATE TRIGGER subtotal_pedido_update
-BEFORE UPDATE ON detalles_pedido
-FOR EACH ROW
-BEGIN
-    SET NEW.subtotal_pedido = NEW.precio_unitario * NEW.cantidad_producto;
-END //
-DELIMITER ;
-
 /*TOTAL_PEDIDO SUMA*/
 /*Al insertar en detalles_pedido se sumara*/
 DELIMITER //
@@ -268,35 +289,22 @@ BEGIN
 END //
 DELIMITER ;
 
-/* Se actualiza el subtotal_pedido de detalles_pedido por el producto extra */
-DELIMITER //
-DROP TRIGGER IF EXISTS actualizar_subtotal_pedido_producto_extra //
-CREATE TRIGGER actualizar_subtotal_pedido_producto_extra
-AFTER UPDATE ON detalles_pedido_pe
-FOR EACH ROW
-BEGIN
-    UPDATE detalles_pedido
-    SET subtotal_pedido = (SELECT precio_unitario * cantidad_producto
-                          FROM detalles_pedido
-                          WHERE id = NEW.id_detalle_pedido) + NEW.precio_pe
-    WHERE id = NEW.id_detalle_pedido;
-END //
-DELIMITER ;
-
-/* Se actualiza (al insertar) el subtotal_pedido de detalles_pedido por el producto extra */
+/*SE SUMA EL PE CON EL SUBTOTAL_PEDIDO* y se multiplica con la cantidad */
 DELIMITER //
 DROP TRIGGER IF EXISTS insert_actualizar_subtotal_pedido_producto_extra //
 CREATE TRIGGER insert_actualizar_subtotal_pedido_producto_extra
 AFTER INSERT ON detalles_pedido_pe
 FOR EACH ROW
 BEGIN
+
     UPDATE detalles_pedido
-    SET subtotal_pedido = (SELECT precio_unitario * cantidad_producto
-                          FROM detalles_pedido
-                          WHERE id = NEW.id_detalle_pedido) + NEW.precio_pe
+    SET subtotal_pedido = subtotal_pedido + (cantidad_producto*NEW.precio_pe)
     WHERE id = NEW.id_detalle_pedido;
-END //
+END;
+//
 DELIMITER ;
+
+SELECT * FROM detalles_pedido;
 
 /* Al hacer update en id_producto_extra cambia el precio_pe */
 DELIMITER //

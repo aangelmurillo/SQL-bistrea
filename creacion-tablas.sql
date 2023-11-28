@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS cafeteria;
+DROP DATABASE cafeteria;
 CREATE DATABASE IF NOT EXISTS cafeteria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE cafeteria;
@@ -74,7 +74,6 @@ CREATE TABLE IF NOT EXISTS resenas (
     PRIMARY KEY(id),
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id)
 );
-ALTER TABLE resenas MODIFY COLUMN comentario_resena LONGTEXT NOT NULL;
 
 CREATE TABLE IF NOT EXISTS configs_carusel (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
@@ -87,7 +86,7 @@ CREATE TABLE IF NOT EXISTS productos (
     nombre_producto VARCHAR(120) NOT NULL,
     descripcion_producto VARCHAR(200),
     precio_unitario_producto DECIMAL(6,2) NOT NULL,
-    stock_producto INT NOT NULL,
+    stock_producto INT NOT NULL DEFAULT 0,
     img_producto VARCHAR(255) NOT NULL,
     slug_producto VARCHAR(120) NOT NULL,
     id_categoria INT NOT NULL,
@@ -99,8 +98,8 @@ CREATE TABLE IF NOT EXISTS productos (
     PRIMARY KEY(id),
     FOREIGN KEY(id_medida) REFERENCES medidas(id)
 );
-ALTER TABLE productos MODIFY COLUMN estado_producto TINYINT(4) NULL DEFAULT 1; 
-ALTER TABLE productos MODIFY COLUMN stock_producto INT NOT NULL DEFAULT 0; 
+ALTER TABLE productos MODIFY COLUMN estado_producto TINYINT(4) NULL DEFAULT 1;
+ALTER TABLE productos MODIFY COLUMN stock_producto INT NOT NULL DEFAULT 0;
 
 CREATE TABLE IF NOT EXISTS stock_productos (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
@@ -126,13 +125,12 @@ CREATE TABLE IF NOT EXISTS pedidos (
     nombre_cliente_pedido VARCHAR(120) NOT NULL,
     total_pedido DECIMAL(7,2) NOT NULL
 );
-
 ALTER TABLE pedidos MODIFY COLUMN total_pedido DECIMAL (7,2) NULL;
 ALTER TABLE pedidos MODIFY COLUMN fecha_realizado_pedido DATE DEFAULT NOW();
 ALTER TABLE pedidos MODIFY COLUMN hora_realizado_pedido TIME DEFAULT NOW();
 ALTER TABLE pedidos MODIFY COLUMN nombre_cliente_pedido VARCHAR (120) NULL;
 ALTER TABLE pedidos MODIFY COLUMN hora_entrega_pedido TIME NULL;
-ALTER TABLE pedidos MODIFY COLUMN estado_pedido ENUM ("En solicitud", "En proceso", "Entregado") NOT NULL DEFAULT 'En proceso';
+ALTER TABLE pedidos MODIFY COLUMN estado_pedido ENUM ("En solicitud", "En proceso", "Entregado", "Cancelado") NOT NULL DEFAULT 'En proceso';
 
 CREATE TABLE IF NOT EXISTS detalles_pedido (
     id INT AUTO_INCREMENT NOT NULL UNIQUE,
