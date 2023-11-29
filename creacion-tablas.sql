@@ -1,4 +1,5 @@
 DROP DATABASE cafeteria;
+DROP DATABASE cafeteria;
 CREATE DATABASE IF NOT EXISTS cafeteria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE cafeteria;
@@ -181,3 +182,6 @@ CREATE TABLE IF NOT EXISTS pedidos_clientes (
 ALTER TABLE usuarios MODIFY COLUMN foto_perfil_usuario VARCHAR (255) NOT NULL DEFAULT 'fotoperfil.jpg';
 ALTER TABLE productos MODIFY COLUMN img_producto VARCHAR (255) NOT NULL;
 ALTER TABLE configs_carusel MODIFY COLUMN img_config_carusel VARCHAR (255) NOT NULL;
+ALTER TABLE productos MODIFY COLUMN especialidad_producto VARCHAR (120) NOT NULL;
+ALTER TABLE detalles_pedido ADD COLUMN tipo_pago_pedido ENUM('Efectivo', 'Paypal') DEFAULT 'Efectivo' NOT NULL;
+ALTER TABLE productos MODIFY COLUMN especialidad_producto ENUM('Caliente', 'Frio', 'Postre') NOT NULL;
