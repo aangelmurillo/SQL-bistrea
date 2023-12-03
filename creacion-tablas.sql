@@ -1,7 +1,5 @@
 DROP DATABASE cafeteria;
-DROP DATABASE cafeteria;
 CREATE DATABASE IF NOT EXISTS cafeteria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
 USE cafeteria;
 
 CREATE TABLE IF NOT EXISTS roles (
@@ -99,6 +97,7 @@ CREATE TABLE IF NOT EXISTS productos (
     PRIMARY KEY(id),
     FOREIGN KEY(id_medida) REFERENCES medidas(id)
 );
+ALTER TABLE productos MODIFY COLUMN especialidad_producto ENUM('Caliente', 'Frio', 'Postre') NOT NULL;
 ALTER TABLE productos MODIFY COLUMN estado_producto TINYINT(4) NULL DEFAULT 1;
 ALTER TABLE productos MODIFY COLUMN stock_producto INT NOT NULL DEFAULT 0;
 
@@ -182,6 +181,23 @@ CREATE TABLE IF NOT EXISTS pedidos_clientes (
 ALTER TABLE usuarios MODIFY COLUMN foto_perfil_usuario VARCHAR (255) NOT NULL DEFAULT 'fotoperfil.jpg';
 ALTER TABLE productos MODIFY COLUMN img_producto VARCHAR (255) NOT NULL;
 ALTER TABLE configs_carusel MODIFY COLUMN img_config_carusel VARCHAR (255) NOT NULL;
-ALTER TABLE productos MODIFY COLUMN especialidad_producto VARCHAR (120) NOT NULL;
-ALTER TABLE detalles_pedido ADD COLUMN tipo_pago_pedido ENUM('Efectivo', 'Paypal') DEFAULT 'Efectivo' NOT NULL;
-ALTER TABLE productos MODIFY COLUMN especialidad_producto ENUM('Caliente', 'Frio', 'Postre') NOT NULL;
+
+DESCRIBE productos;
+
+ALTER TABLE productos
+DROP FOREIGN KEY productos_ibfk_1;
+ALTER TABLE productos
+DROP FOREIGN KEY productos_ibfk_2;
+DROP TABLE medidas;
+DROP TABLE categorias;
+
+ALTER TABLE productos CHANGE id_categoria categoria ENUM('Cafes', 'Postres') NOT NULL;
+ALTER TABLE productos CHANGE id_medida unidad_medida ENUM('Mililitros', 'Gramos', 'Piezas') NOT NULL;
+
+DESCRIBE productos;
+
+ALTER DATABASE cafeteria CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+DROP TABLE stock_productos;
+SELECT * FROM productos;
+ALTER TABLE detalles_pedido MODIFY COLUMN tipo_pago_pedido VARCHAR (120) DEFAULT 'Efectivo';
