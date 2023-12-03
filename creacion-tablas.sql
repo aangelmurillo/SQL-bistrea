@@ -195,9 +195,11 @@ ALTER TABLE productos CHANGE id_categoria categoria ENUM('Cafes', 'Postres') NOT
 ALTER TABLE productos CHANGE id_medida unidad_medida ENUM('Mililitros', 'Gramos', 'Piezas') NOT NULL;
 
 DESCRIBE productos;
-
+DESCRIBE detalles_pedido;
 ALTER DATABASE cafeteria CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 DROP TABLE stock_productos;
 SELECT * FROM productos;
 ALTER TABLE detalles_pedido MODIFY COLUMN tipo_pago_pedido VARCHAR (120) DEFAULT 'Efectivo';
+ALTER TABLE detalles_pedido ADD COLUMN nombre_producto VARCHAR (120) AFTER precio_unitario;
+
