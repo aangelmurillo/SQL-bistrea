@@ -1,3 +1,4 @@
+/**/
 /*PEDIDOS*/
 /* Cantidad en stock al hacer un pedido que la cantidad viene de detalles_pedido */
 DELIMITER //
